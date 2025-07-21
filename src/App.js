@@ -12,17 +12,32 @@ function App() {
   }
 
   function handleAddTask() {
-    setTasks([...tasks, input]);
+    const newTask = {
+      text: input,
+      complete: false,
+    };
+    setTasks([...tasks, newTask]);
     setInput("");
   }
 
+  function toogleTask(index) {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+  }
+
   return (
-    <div>
+    <div className="todo-container">
       <h1>To-Do List</h1>
       <input
         type="text"
         value={input}
         onChange={handleInputChange}
+        onKeyDown={function (event) {
+          if (event.key === "Enter") {
+            handleAddTask();
+          }
+        }}
         placeholder="Add a new task"
       />
 
@@ -30,7 +45,21 @@ function App() {
 
       <ul>
         {tasks.map(function (task, index) {
-          return <li key={index}>{task}</li>;
+          return (
+            <li key={index}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={function () {
+                    toogleTask(index);
+                  }}
+                />
+
+                {task.text}
+              </label>
+            </li>
+          );
         })}
       </ul>
     </div>
