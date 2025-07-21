@@ -12,13 +12,27 @@ function App() {
   }
 
   function handleAddTask() {
-    setTasks([tasks, input]);
+    setTasks([...tasks, input]);
     setInput("");
   }
 
   return (
     <div>
       <h1>To-Do List</h1>
+      <input
+        type="text"
+        value={input}
+        onChange={handleInputChange}
+        placeholder="Add a new task"
+      />
+
+      <button onClick={handleAddTask}>Add task</button>
+
+      <ul>
+        {tasks.map(function (task, index) {
+          return <li key={index}>{task}</li>;
+        })}
+      </ul>
     </div>
   );
 }
