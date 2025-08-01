@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
 import "./App.css";
+import { FaTrash } from "react-icons/fa";
 
 function App() {
   const [input, setInput] = useState("");
@@ -14,15 +15,22 @@ function App() {
   function handleAddTask() {
     const newTask = {
       text: input,
-      complete: false,
+      completed: false,
     };
     setTasks([...tasks, newTask]);
     setInput("");
   }
 
-  function toogleTask(index) {
+  function toggleTask(index) {
     const updatedTasks = [...tasks];
     updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+  }
+
+  function handleDelete(index) {
+    const updatedTasks = tasks.filter(function (task, i) {
+      return i !== index;
+    });
     setTasks(updatedTasks);
   }
 
@@ -47,17 +55,28 @@ function App() {
         {tasks.map(function (task, index) {
           return (
             <li key={index}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={task.completed}
-                  onChange={function () {
-                    toogleTask(index);
-                  }}
-                />
+              <div className="task-content">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={function () {
+                      toggleTask(index);
+                    }}
+                  />
+                  {task.text}
+                </label>
 
-                {task.text}
-              </label>
+                <button
+                  className="deleteButton"
+                  onClick={function () {
+                    handleDelete(index);
+                  }}
+                  aria-label={`Delete task:${task.text}`}
+                >
+                  <FaTrash />
+                </button>
+              </div>
             </li>
           );
         })}

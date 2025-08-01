@@ -40,6 +40,46 @@ button:hover {
   background-color: #3a7bd5;
 }
 
+.task-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.task-content label {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  color: black;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.deleteButton svg {
+  font-size: 18px;
+  color: black;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* push label left, button right */
+  padding: 6px 0;
+}
+
+li label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
 ul {
   list-style-type: none;
   padding-left: 0;
